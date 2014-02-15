@@ -7,8 +7,9 @@ FOO_SUBDIR := $(PWD)/foo
 CPPFLAGS :=
 CFLAGS := -ggdb
 LDFLAGS := -L$(FOO_SUBDIR)
-LDLIBS := -lfoo -lgnufoo
 
+FOO_LIBSFILES := $(FOO_SUBDIR)/libfoo.a $(FOO_SUBDIR)/libgnufoo.a
+FOO_LDLIBS := -lfoo -lgnufoo
 
 
 .PHONY: all
@@ -16,15 +17,14 @@ LDLIBS := -lfoo -lgnufoo
 all: main
 
 # There are theoretically 3 main binaries
-main: main.o
-	$(LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+main: main.o $(FOO_LIBSFILES)
+	$(LD) $(LDFLAGS) -o $@ $< $(FOO_LDLIBS)
 
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS) $(CPPFLAGS)
 
 
-$(FOO_SUBDIR)/libfoo.a: foo.stamp
-$(FOO_SUBDIR)/libgnufoo.a: foo.stamp
+$(FOO_LIBSFILES): foo.stamp
 
 .INTERMEDIATE: foo.stamp
 foo.stamp:
