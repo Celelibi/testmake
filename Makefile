@@ -2,7 +2,7 @@ CC := gcc
 RM := rm -f
 LD := gcc
 
-FOO_SUBDIR := $(PWD)/foo
+FOO_SUBDIR := $(CURDIR)/foo
 
 CPPFLAGS :=
 CFLAGS := -ggdb
