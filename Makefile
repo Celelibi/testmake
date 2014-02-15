@@ -13,7 +13,6 @@ FOO_LDLIBS := -lfoo -lgnufoo
 
 
 .PHONY: all
-
 all: main
 
 # There are theoretically 3 main binaries
@@ -24,11 +23,10 @@ main: main.o $(FOO_LIBSFILES)
 	$(CC) -o $@ -c $< $(CFLAGS) $(CPPFLAGS)
 
 
-$(FOO_LIBSFILES): foo.stamp
+$(FOO_LIBSFILES): libfoo
 
-.INTERMEDIATE: foo.stamp
-foo.stamp:
-	touch $@
+.PHONY: libfoo
+libfoo:
 	$(MAKE) -C $(FOO_SUBDIR)
 
 
