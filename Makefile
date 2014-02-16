@@ -23,7 +23,8 @@ main: main.o $(FOO_LIBSFILES)
 	$(CC) -o $@ -c $< $(CFLAGS) $(CPPFLAGS)
 
 
-$(FOO_LIBSFILES): libfoo
+# The empty recipe force make to check the file date
+$(FOO_LIBSFILES): libfoo ;
 
 .PHONY: libfoo
 libfoo:
